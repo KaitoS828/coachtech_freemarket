@@ -11,14 +11,14 @@ use Illuminate\Routing\Controller;
 class LikeController extends Controller
 {
     // いいねの追加または削除を行う
-    public function toggle($itemId)
+    public function toggle($id)
     {
         // 1. ログインユーザーのIDを取得
         $userId = Auth::id();
         
         // 2. 既にいいねが存在するか検索
         $like = Like::where('user_id', $userId)
-                    ->where('item_id', $itemId)
+                    ->where('item_id', $id)
                     ->first(); // 最初のレコードを取得
 
         // 3. 存在チェックと処理の切り替え
@@ -29,12 +29,12 @@ class LikeController extends Controller
             // 存在しない場合: 新規作成 (いいね)
             Like::create([
                 'user_id' => $userId,
-                'item_id' => $itemId,
+                'item_id' => $id,
             ]);
         }
 
         // 4. 商品詳細ページへリダイレクト
-        return redirect()->route('item.show', ['id' => $itemId]);
+        return redirect()->route('item.show', ['id' => $id]);
 }
     
 }

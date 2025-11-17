@@ -70,7 +70,7 @@
                 @if ($item->purchase)
                     <button class="buy-button sold-out-button" disabled> SOLD OUT (購入済み) </button>
                 @else
-                    {{-- ★★★ 修正箇所: ルート名を 'item.purchase.create' に変更 ★★★ --}}
+                    {{-- ★★★ 修正: ルート名を 'item.purchase.create'、キーを 'id' に統一 ★★★ --}}
                     <a href="{{ route('item.purchase.create', ['id' => $item->id]) }}" class="buy-button active-button">
                         購入手続きへ
                     </a>
@@ -108,22 +108,46 @@
         <hr class="comments-divider">
         
         {{-- コメントセクション --}}
-        <div class="comments-section">
-            <h3>コメント({{ $item->comments->count() }})</h3>
-            
-            {{-- 既存のコメント一覧 --}}
-            <div class="comment-list">
-                @foreach ($item->comments as $comment)
-                    <div class="comment-item">
-                        {{-- コメントしたユーザーのアイコンと名前 (見本) --}}
-                        <div class="comment-user-info">
-                            <div class="user-icon"></div>
-                            <span class="username">{{ $comment->user->name ?? '名無しユーザー' }}</span>
-                        </div>
-                        <p class="comment-body">{{ $comment->comment }}</p>
+    <div class="comments-section">
+        <h3>コメント({{ $item->comments->count() }})</h3>
+        
+        {{-- 既存のコメント一覧 --}}
+        <div class="comment-list">
+            @foreach ($item->comments as $comment)
+                <div class="comment-item">
+                    {{-- コメントしたユーザーのアイコンと名前 (見本) --}}
+                    <div class="comment-user-info">
+                        <div class="user-icon"></div>
+                        <span class="username">{{ $comment->user->name ?? '名無しユーザー' }}</span>
                     </div>
-                @endforeach
-            </div>
+                    <p class="comment-body">{{ $comment->comment }}</p>
+                </div>
+            @endforeach
         </div>
+
+        {{-- コメント投稿フォーム: ログイン時のみ表示 --}}
+        @auth
+            <div class="comment-form-area">
+                <h4>商品へのコメント</h4>
+                {{-- 💡 コメント保存ルートと隠しフィールドを正しく設定 --}}
+                <form action="{{ route('comment.store') }}" method="POST">
+                    @csrf
+                    {{-- ★商品IDを隠しフィールドで送る --}}
+                    <input type="hidden" name="item_id" value="{{ $item->id }}">
+                    
+                    <textarea name="comment" rows="5" placeholder="こちらにコメントを入力します">{{ old('comment') }}</textarea>
+                    
+                    {{-- ★ バリデーションエラー表示 --}}
+                    @error('comment')
+                        <p class="error-message">{{ $message }}</p>
+                    @enderror
+
+                    <button type="submit" class="comment-submit-button">コメントを送信する</button>
+                </form>
+            </div>
+        @else
+            <p class="login-prompt">コメントするには<a href="{{ route('login') }}">ログイン</a>してください。</p>
+        @endauth
+    </div>
     </div>
 @endsection

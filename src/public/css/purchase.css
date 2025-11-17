@@ -1,33 +1,36 @@
 /* public/css/purchase.css */
 
 .purchase-container {
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 40px auto;
     padding: 0 20px;
 }
 
 h2 {
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
     margin-bottom: 30px;
-    text-align: center;
+    text-align: left;
 }
 
-/* ★★★ 新規：左上商品ヘッダーエリア ★★★ */
+/* ★★★ 左上商品ヘッダーエリア ★★★ */
 .item-header-summary {
     display: flex;
     align-items: center;
-    padding: 10px 0;
-    width: 60%; 
+    padding: 20px 0;
+    width: 100%; 
 }
 
 .header-image-wrapper {
     flex-shrink: 0;
-    width: 100px; 
-    height: 100px;
-    background-color: #eee;
-    margin-right: 20px;
+    width: 120px; 
+    height: 120px;
+    background-color: #ddd;
+    margin-right: 30px;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .header-item-image {
@@ -36,43 +39,44 @@ h2 {
     object-fit: cover;
 }
 
+.header-info-wrapper {
+    flex-grow: 1;
+}
+
 .header-item-name {
     font-size: 20px;
     font-weight: bold;
-    margin: 0;
+    margin: 0 0 10px 0;
 }
 
 .header-item-price {
-    font-size: 18px;
-    margin: 5px 0 0;
+    font-size: 20px;
+    margin: 0;
+    font-weight: normal;
 }
 
 .header-divider {
     border: none;
     border-top: 1px solid #ddd;
-    margin: 20px 0;
+    margin: 20px 0 30px 0;
 }
-/* ★★★ ヘッダーエリアここまで ★★★ */
-
 
 /* --- メインコンテンツエリア (左右2カラムレイアウト) --- */
 .purchase-main-content {
     display: flex;
-    gap: 40px;
-    align-items: flex-start; /* 左上揃え */
+    gap: 60px;
+    align-items: flex-start;
 }
 
 /* 左側: 支払いと配送エリア */
 .payment-shipping-area {
-    flex-grow: 1; /* 幅広に */
+    flex-grow: 1;
 }
 
 /* 右側: サマリーエリア */
 .summary-area {
     flex-shrink: 0;
-    width: 350px;
-    padding: 0; 
-    /* 見本では枠線がないため、テーブルに任せる */
+    width: 380px;
 }
 
 /* --- 左側セクションのスタイル --- */
@@ -81,58 +85,105 @@ h2 {
 }
 
 .section-box h3 {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.section-box p {
+    margin: 5px 0;
+    font-size: 15px;
+    line-height: 1.6;
 }
 
 /* 支払い方法のプルダウン */
 select[name="payment_method"] {
-    width: 50%; 
-    padding: 10px;
+    width: 100%;
+    max-width: 400px;
+    padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 15px;
+    background-color: white;
+}
+
+/* エラーメッセージ */
+.error-message {
+    color: #F84F59;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+/* 配送先変更リンク */
+.address-change-link {
+    display: inline-block;
+    margin-top: 15px;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.address-change-link:hover {
+    text-decoration: underline;
 }
 
 .section-divider {
     border: none;
     border-top: 1px solid #ddd;
-    margin: 15px 0;
+    margin: 30px 0;
 }
-
 
 /* --- 右側サマリーのスタイル --- */
 .summary-table {
     width: 100%;
     border-collapse: collapse;
+    margin-bottom: 20px;
 }
 
-.summary-table th, .summary-table td {
-    padding: 10px 15px;
-    border: 1px solid #ddd; /* 見本に合わせた枠線 */
-    font-size: 16px;
+.summary-table th, 
+.summary-table td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    font-size: 15px;
 }
 
 .summary-table th {
     text-align: left;
     font-weight: normal;
+    background-color: #fafafa;
+    width: 50%;
 }
 
 .summary-table td {
     text-align: right;
+    font-weight: normal;
+}
+
+.summary-table .total-row th,
+.summary-table .total-row td {
     font-weight: bold;
+    font-size: 16px;
 }
 
 /* 購入ボタン */
-.purchase-confirm-button {
+.purchase-button {
     width: 100%;
-    padding: 15px;
+    padding: 16px;
     background-color: #F84F59; 
     color: white;
     border: none;
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.purchase-button:hover {
+    background-color: #e63946;
+}
+
+.purchase-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }

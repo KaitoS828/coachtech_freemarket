@@ -18,28 +18,32 @@ class ItemController extends Controller
      * 商品一覧（トップページ）を表示するためのメソッド
      * @param  \Illuminate\Http\Request  $request
      */
-    public function index(Request $request)
-{
-    $categories = Category::all();
-    $keyword = $request->input('keyword'); // ★検索キーワードを取得
+        public function index(Request $request)
+    {
+        $categories = Category::all();
+        $keyword = $request->input('keyword'); 
 
-    // 1. 基本クエリを作成 (N+1問題対策)
-    $query = Item::with(['categories', 'likes', 'comments']);
+        // 1. 基本クエリを作成 (N+1問題対策)
+        // 💡 $query にクエリビルダインスタンスを保持させる
+        $query = Item::with(['categories', 'likes', 'comments']);
 
-    // 2. ★★★ 検索ロジックの適用 (FN016: 商品名で部分一致検索) ★★★
-    if ($keyword) {
-        // WHERE句を追加: 商品名 (name) で部分一致検索
-        // 💡 データベースに送る前にクエリを絞り込みます
-        $query->where('name', 'LIKE', '%' . $keyword . '%');
-    }
+        // 2. ★★★ 検索/タブの条件分岐でクエリを絞り込む ★★★
+        if ($request->tab === 'mylist' && Auth::check()) {
+            $likedItemIds = Auth::user()->likes()->pluck('item_id'); 
+            
+            // 💡 $query に whereIn を適用 (get() はまだ実行しない)
+            $query->whereIn('id', $likedItemIds); 
+        } 
+        
+        // 3. 検索キーワードの適用 (Fn016)
+        if ($keyword) {
+            $query->where('name', 'LIKE', '%' . $keyword . '%');
+        }
+        
+        // 4. 最終的な商品データを取得 (ここで初めて get() を実行)
+        $items = $query->get();
 
-    // 3. タブ（マイリスト）の条件分岐 (省略)
-
-    // 4. クエリを実行して商品データを取得
-    $items = $query->get(); // 絞り込まれたクエリを実行
-
-    // 5. Viewにデータを渡す
-    return view('item.index', compact('items', 'categories', 'keyword')); 
+        return view('item.index', compact('items', 'categories', 'keyword')); 
 }
 
     // ---商品出品機能---

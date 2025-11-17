@@ -16,12 +16,12 @@ class PurchaseController extends Controller
 {
     /**
      * 商品購入画面（支払い方法・配送先選択）を表示する。
-     * @param  int  $itemId
+     * @param  int  $id
      */
-    public function create($itemId)
+    public function create($id)
     {
         // 1. 購入する商品情報を取得
-        $item = Item::findOrFail($itemId);
+        $item = Item::findOrFail($id);
 
         // 2. ログインユーザーと、そのプロフィール/住所情報を取得
         $user = Auth::user();
@@ -40,10 +40,10 @@ class PurchaseController extends Controller
     }
 
 
-    public function editAddress($itemId)
+    public function editAddress($id)
     {
         // 1. 商品情報と現在のプロフィール情報を取得
-        $item = Item::findOrFail($itemId);
+        $item = Item::findOrFail($id);
         $profile = Auth::user()->profile ?? new Profile();
 
         // 2. Viewにデータを渡す
@@ -54,7 +54,7 @@ class PurchaseController extends Controller
      * 配送先住所を更新する (FN024-2)
      * 💡 updateAddress ルートに対応
      */
-    public function updateAddress(Request $request, $itemId)
+    public function updateAddress(Request $request, $id)
     {
         // 1. バリデーションの実行
         // 設計書の「郵便番号: ハイフンありの8文字」に準拠
@@ -74,13 +74,13 @@ class PurchaseController extends Controller
         );
         
         // 3. 購入画面に戻る (FN024-2)
-        return redirect()->route('purchase.create', ['itemId' => $itemId])->with('success', '配送先住所を更新しました。');
+        return redirect()->route('purchase.create', ['itemId' => $id])->with('success', '配送先住所を更新しました。');
     }
 
     /**
      * 購入処理と決済を実行する (FN022/FN023)
      */
-    public function store(PurchaseRequest $request, $itemId)
+    public function store(PurchaseRequest $request, $id)
     {
         // 1. バリデーション（支払い方法の選択は必須）
         $request->validate([
@@ -92,13 +92,13 @@ class PurchaseController extends Controller
 
         if (!$profile || !$profile->post_code || !$profile->address) {
             // 住所情報が未設定の場合は、エラーとして購入画面に戻す
-            return redirect()->route('purchase.create', ['itemId' => $itemId])->with('error', '配送先住所が未設定です。');
+            return redirect()->route('purchase.create', ['itemId' => $id])->with('error', '配送先住所が未設定です。');
         }
 
         // 3. トランザクション処理 (データの整合性を保証)
-        DB::transaction(function () use ($request, $itemId, $profile) {
+        DB::transaction(function () use ($request, $id, $profile) {
             
-            $item = Item::findOrFail($itemId);
+            $item = Item::findOrFail($id);
 
             // 🚨 既に売却済みでないかのチェック
             if ($item->is_sold) {
@@ -109,7 +109,7 @@ class PurchaseController extends Controller
             // 4. Purchaseレコードの作成 (FN022-1, 3)
             Purchase::create([
                 'user_id' => Auth::id(),
-                'item_id' => $itemId,
+                'item_id' => $id,
                 'payment_method' => $request->payment_method,
                 
                     // ★★★ 配送先情報を追加 ★★★
