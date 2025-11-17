@@ -1,0 +1,42 @@
+/* 会員登録ページのレイアウト */
+.register-container {
+    max-width: 450px;
+    margin: 0 auto; /* 50px auto から 0 auto に変更 */
+    padding: 40px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.register__heading {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 20px;
+}
+
+/* バリデーションエラー */
+.form-errors {
+    color: #ff5555;
+    background-color: #fff0f0;
+    border: 1px solid #ffaaaa;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+.form-errors ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+/* 「ログインはこちら」のリンク */
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.login-link a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 14px;
+}

@@ -1,0 +1,140 @@
+/* public/css/show.css (マイページ表示用) */
+
+.mypage-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* ------------------- 1. プロフィールヘッダーエリア ------------------- */
+
+.profile-page .user-info {
+    display: flex;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+/* ★★★ プロフィール画像枠 (edit.blade.phpと共通) ★★★ */
+.profile-image-frame {
+    /* 競合解消のため、サイズを明示的に指定 */
+    width: 150px; 
+    height: 150px;
+    
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin-right: 30px;
+    
+    /* placeholder スタイル */
+    background-color: #eee;
+    border: 1px solid #ccc;
+}
+
+.user-info h1 {
+    font-size: 24px;
+    margin-right: auto; /* プロフィールを編集ボタンを右に寄せる */
+}
+
+.button-edit {
+    padding: 10px 20px;
+    border: 1px solid #F84F59;
+    color: #F84F59;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* ------------------- 2. タブエリア ------------------- */
+
+.tabs {
+    display: flex;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #eee;
+}
+
+.tab-link {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #555;
+    font-weight: bold;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.tab-link.active {
+    color: #F84F59; /* 赤色 */
+    border-bottom-color: #F84F59;
+}
+
+/* ------------------- 3. 商品一覧エリア ------------------- */
+
+.items-list {
+    display: grid;
+    /* 1行に4列の商品を均等に配置 */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px; 
+}
+
+.item-card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* 1. 画像の外枠（コンテナ）のスタイル */
+.item-image-wrapper {
+    /* width: 90%; ⬅︎ これを削除し、グリッドに幅を任せる */
+    width: 100%;
+    aspect-ratio: 1 / 1; /* 正方形を維持 */
+    background-color: #e0e0e0;
+    overflow: hidden; 
+    position: relative; /* SOLDバッジ用 */
+}
+
+/* 2. 商品画像（imgタグ）のスタイル */
+.item-image {
+    width: 100%; 
+    height: 100%;
+    object-fit: cover; 
+    display: block;
+}
+
+.item-name {
+    text-align: left;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+/* ------------------- 4. SOLD表示 (FN022) ------------------- */
+
+.sold-badge {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-20deg);
+    background-color: #F84F59;
+    color: white;
+    padding: 5px 15px;
+    font-size: 18px;
+    font-weight: bold;
+    border: 3px solid white;
+    z-index: 10;
+}
+
+/* ------------------- 5. 汎用/雑多な要素 ------------------- */
+
+.header-divider {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+}
+
+.main-content-end {
+    clear: both;
+}
+
+.no-items-message {
+    grid-column: 1 / -1; /* グリッド全体に広げる */
+    text-align: center;
+    color: #888;
+    padding: 40px;
+}

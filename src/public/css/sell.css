@@ -1,0 +1,130 @@
+/* public/css/sell.css */
+
+.item-form__container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.form__section {
+    margin-bottom: 30px;
+}
+
+.section__title {
+    font-size: 18px;
+    font-weight: bold;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #333; /* 区切り線 */
+}
+
+/* 画像選択エリア */
+.image-upload-area {
+    border: 1px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-select-button {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid #F84F59;
+    color: #F84F59;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* カテゴリタグ */
+.category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; 
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.category-tag-label input[type="checkbox"] {
+    display: none;
+
+}
+
+
+.category-tag-label {
+    display: inline-block;
+    padding: 10px 20px;
+    border: 1px solid #F84F59;
+    color: #F84F59;
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 20px;
+    margin-top: 10px;
+}
+
+/* 選択されたカテゴリのスタイル(赤く塗りつぶし) */
+.category-tag-label:has(input:checked) {
+    background-color: #F84F59;
+    color: white;
+}
+
+/* input type="checkbox" 自体は非表示 */
+.category-tag-label input[type="checkbox"] {
+    display: none;
+}
+
+/* フォーム入力欄 */
+.form__input,
+.form__select,
+.form__textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px;
+    box-sizing: border-box;
+}
+
+/* 価格入力欄の調整 */
+.price-group {
+    display: flex;
+    align-items: center;
+}
+
+.price__yen-mark {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.form__input--price {
+    flex-grow: 1;
+}
+
+/* 出品ボタン */
+.form__button--submit {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #F84F59;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}

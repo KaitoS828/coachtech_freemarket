@@ -1,0 +1,12 @@
+.login-container {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form__group {
+    /* 1. 配置: 画面の中央に寄せる */
+    max-width: 680px; /* ★フォームの最大の幅を制限する */
+    margin: 30px auto; /* 画面の上下に余白をとり、左右を中央寄せにする */
+    
+
+}

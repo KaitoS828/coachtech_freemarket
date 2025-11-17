@@ -1,0 +1,78 @@
+/* --- プロフィール設定ページのレイアウト (edit.blade.php用) --- */
+
+.profile-form__container {
+    /* 1. 配置: 画面の中央に寄せる */
+    max-width: 680px; /* ★フォームの最大の幅を制限する */
+    margin: 30px auto; /* 画面の上下に余白をとり、左右を中央寄せにする */
+    
+
+}
+
+.profile-form__header {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+}
+
+.profile-image-area {
+    display: flex;
+}
+
+/* プロフィール画像とボタンを横並びにするためのコンテナ */
+.profile-image-area {
+    /* Flexboxで中身を横並びに */
+    display: flex; 
+    /* 上下中央揃え */
+    align-items: center; 
+    margin-bottom: 20px;
+}
+
+/* 2. 画像表示枠のスタイル (グレーの丸) */
+.profile-image-frame {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    /* 右側にボタンとの間隔を空ける */
+    margin-right: 30px; 
+    display: block;
+}
+
+/* 画像がない場合のプレースホルダー（グレーの円の背景と縁） */
+.profile-placeholder {
+    background-color: #eee;
+    border: 1px solid #ccc;
+}
+
+/* 3. 画像選択ボタンのスタイル（見本通りに） */
+.image-select-button {
+    /* 見本画像の赤いボタンのスタイル */
+    display: inline-block;
+    padding: 8px 15px; /* ボタンのサイズ調整 */
+    border: 2px solid #F84F59; /* 赤系のボーダー */
+    color: #F84F59; /* 赤系のテキスト */
+    background-color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 5px; /* 少し角丸に */
+    text-align: center;
+
+}
+
+.image-select-button:hover {
+    background-color: #fce4e4; /* 薄い赤色にしてホバー効果を出す */
+}
+
+/* フォーム全体のスタイル（もし必要であれば） */
+.profile-form__container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* バリデーションエラーメッセージのスタイル */
+.error{
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}

@@ -1,0 +1,138 @@
+/* public/css/purchase.css */
+
+.purchase-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* ★★★ 新規：左上商品ヘッダーエリア ★★★ */
+.item-header-summary {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    width: 60%; 
+}
+
+.header-image-wrapper {
+    flex-shrink: 0;
+    width: 100px; 
+    height: 100px;
+    background-color: #eee;
+    margin-right: 20px;
+    overflow: hidden;
+}
+
+.header-item-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.header-item-name {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.header-item-price {
+    font-size: 18px;
+    margin: 5px 0 0;
+}
+
+.header-divider {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 20px 0;
+}
+/* ★★★ ヘッダーエリアここまで ★★★ */
+
+
+/* --- メインコンテンツエリア (左右2カラムレイアウト) --- */
+.purchase-main-content {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start; /* 左上揃え */
+}
+
+/* 左側: 支払いと配送エリア */
+.payment-shipping-area {
+    flex-grow: 1; /* 幅広に */
+}
+
+/* 右側: サマリーエリア */
+.summary-area {
+    flex-shrink: 0;
+    width: 350px;
+    padding: 0; 
+    /* 見本では枠線がないため、テーブルに任せる */
+}
+
+/* --- 左側セクションのスタイル --- */
+.section-box {
+    margin-bottom: 30px;
+}
+
+.section-box h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* 支払い方法のプルダウン */
+select[name="payment_method"] {
+    width: 50%; 
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.section-divider {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 15px 0;
+}
+
+
+/* --- 右側サマリーのスタイル --- */
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.summary-table th, .summary-table td {
+    padding: 10px 15px;
+    border: 1px solid #ddd; /* 見本に合わせた枠線 */
+    font-size: 16px;
+}
+
+.summary-table th {
+    text-align: left;
+    font-weight: normal;
+}
+
+.summary-table td {
+    text-align: right;
+    font-weight: bold;
+}
+
+/* 購入ボタン */
+.purchase-confirm-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #F84F59; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+}

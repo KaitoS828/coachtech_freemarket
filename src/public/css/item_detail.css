@@ -1,0 +1,189 @@
+.item-detail-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.item-main-area {
+    display: flex; /* 左右に並べる */
+    gap: 40px;     /* 左右の要素間の隙間 */
+}
+
+/* 画像エリアのサイズ */
+.item-image-wrapper {
+    flex-shrink: 0;
+    width: 45%; 
+    background-color: #f0f0f0;
+    aspect-ratio: 1 / 1; 
+    /* ... その他のスタイル ... */
+}
+
+/* 左側 画像 */
+.item-image-wrapper {
+    flex-shrink: 0;
+    width: 45%; /* 見本通りの広い画像エリア */
+    background-color: #f0f0f0;
+    aspect-ratio: 1 / 1; /* 正方形 */
+}
+.item-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 右側 情報 */
+.item-info {
+    flex-grow: 1;
+}
+
+.item-info h1 {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+.brand-name {
+    color: #666;
+    margin-bottom: 15px;
+}
+.price {
+    font-size: 28px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* いいね/コメント数 */
+.interaction-stats {
+    display: flex;
+    gap: 15px;
+    font-size: 16px;
+    color: #F84F59; /* ハートやコメントアイコンの色 */
+    margin-bottom: 20px;
+}
+
+/* 購入ボタン */
+.buy-button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #F84F59; /* 赤く塗りつぶし */
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* アクティブなボタンのスタイル (赤色) */
+.buy-button.active-button {
+    background-color: #F84F59;
+    cursor: pointer;
+}
+
+/* ★★★ SOLD OUT時のスタイル (グレー) ★★★ */
+.buy-button.sold-out-button {
+    background-color: #808080; /* 濃いめのグレー */
+    cursor: default; /* カーソルを通常に戻す */
+    
+    /* 💡 クリックを完全に無効化するためのCSS設定 */
+    pointer-events: none; 
+    opacity: 0.8; /* 少し透明度を加えて、より無効だと強調しても良い */
+}
+
+.info-divider, .comments-divider {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 25px 0;
+}
+
+/* 商品の情報 */
+.item-specs {
+    margin-top: 15px;
+}
+.spec-row {
+    display: flex;
+    margin-bottom: 5px;
+}
+.spec-label {
+    width: 100px;
+    font-weight: bold;
+    color: #666;
+}
+
+/* タグのスタイル */
+.tag {
+    display: inline-block;
+    padding: 3px 8px;
+    background-color: #eee;
+    border-radius: 3px;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+/* コメントセクション */
+.comment-user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.user-icon {
+    width: 30px;
+    height: 30px;
+    background-color: #ccc;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.comment-body {
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 5px;
+    margin-left: 40px; /* アイコン分のインデント */
+}
+
+/* コメント投稿フォーム */
+.comment-form-area textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+    margin-bottom: 10px;
+}
+.comment-submit-button {
+    float: right; /* 見本に合わせて右寄せ */
+    padding: 10px 20px;
+    background-color: #F84F59;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* item_detail.css に追記 */
+
+.like-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    color: #666; /* デフォルトの色 */
+    padding: 0;
+}
+
+.like-button .heart-icon {
+    font-size: 24px;
+    margin-right: 5px;
+    color: #ccc; /* デフォルトのハートの色 */
+    transition: color 0.2s;
+}
+
+/* ★★★ いいね済み (liked) のスタイル ★★★ */
+.like-button.liked .heart-icon {
+    color: #F84F59; /* 赤く塗りつぶし */
+}
+
+.like-button:hover .heart-icon {
+    color: #e64450; /* ホバー時の色変化 */
+}

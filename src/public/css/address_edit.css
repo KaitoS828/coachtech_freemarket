@@ -1,0 +1,65 @@
+/* public/css/address_edit.css */
+
+.address-change-container {
+    max-width: 600px; /* フォームの幅を制限 */
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+}
+
+h2 {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* フォームグループ */
+.form-group {
+    margin-bottom: 25px;
+}
+
+/* ラベルのスタイル */
+.form-group label {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+/* 入力欄（input）のスタイル */
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* paddingを含めた幅にする */
+    font-size: 16px;
+}
+
+/* エラーメッセージのスタイル */
+.error-message {
+    color: #F84F59; /* 赤色 */
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* 更新ボタンのスタイル */
+.update-button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #F84F59; /* 赤く塗りつぶし */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 30px;
+    transition: background-color 0.2s;
+}
+
+.update-button:hover {
+    background-color: #e64450;
+}

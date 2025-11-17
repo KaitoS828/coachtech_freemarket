@@ -1,0 +1,119 @@
+/* --- 基本設定 --- */
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    margin: 0;
+}
+
+/* ページ背景色 */
+.bg-white {
+    background-color: #fff;
+}
+.bg-gray {
+    background-color: #f4f4f4;
+}
+
+/* --- ヘッダー --- */
+.header {
+    background-color: #000;
+    color: #fff;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* ロゴ */
+.header__logo img {
+    height: 30px;
+    width: auto;
+    display: block;
+}
+
+/* --- ヘッダーナビゲーション --- */
+.header__nav {
+    display: flex;
+    align-items: center;
+}
+
+/* ナビゲーションリンク */
+.header__nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 14px;
+}
+
+
+/* 出品ボタン */
+.header__nav-button {
+    background-color: #fff;
+    padding: 8px 15px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* 出品ボタンのテキスト */
+a.header__nav-button {
+    color: black;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 14px;
+}
+
+/* ---検索フォーム--- */
+.header__search-form{
+    flex-grow: 5;
+    max-width: 500px;
+}
+/* 入力欄本体 */
+.header__search-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    align-items: center;
+    display: flex
+}
+
+/* --- メインコンテンツ --- */
+.main {
+    padding: 30px 15px;
+    margin: 0 auto;
+    max-width: 1230px;
+}
+
+/* --- 共通フォームレイアウト--- */
+.form__group {
+    margin-bottom: 20px;
+}
+
+.form__label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.form__input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box; /* paddingを含めてwidth 100%にする */
+    font-size: 16px;
+}
+
+/* 共通ボタン (登録する、など) */
+.form__button {
+    background-color: #ff5555; /* 参考画像の赤色 */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+}
