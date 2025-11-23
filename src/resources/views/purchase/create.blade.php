@@ -60,7 +60,7 @@
                     <p>{{ $profile->address ?? '未設定' }}{{ $profile->building ? ' ' . $profile->building : '' }}</p>
                     
                     {{-- 配送先変更ボタン --}}
-                    <a href="{{ route('purchase.address.edit', ['itemId' => $item->id]) }}" class="address-change-link">
+                    <a href="{{ route('purchase.address.edit', ['id' => $item->id]) }}" class="address-change-link">
                         変更する
                     </a>
                 </div>
@@ -107,7 +107,7 @@
 </div>
 
 {{-- JavaScript: 支払い方法の選択を右側に反映 --}}
-{{-- <script>
+<script>
 document.addEventListener('DOMContentLoaded', function() {
     const paymentSelect = document.getElementById('payment-method-select');
     const paymentDisplay = document.getElementById('payment-display');
@@ -125,5 +125,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
-</script> --}}
+</script>
 @endsection

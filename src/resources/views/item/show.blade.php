@@ -14,7 +14,7 @@
             {{-- 左側: 商品画像 (見本通りの大きな枠) --}}
                 <div class="item-image-wrapper">
                     <img src="
-                    {{-- ★★★ 画像パスの安全な処理 (S3/ローカル混在対応) ★★★ --}}
+                    {{--  画像パスの安全な処理 (S3/ローカル混在対応)  --}}
                     @if (str_starts_with($item->image_path, 'http'))
                         {{ $item->image_path }}
                     @else
@@ -32,7 +32,7 @@
                 <div class="interaction-stats">
                     
                     @auth
-                        {{-- 💡 ログインユーザーがいいね済みか判定 --}}
+                        {{-- ログインユーザーがいいね済みか判定 --}}
                         @php
                             // $item->likes は Like コレクション。その中に現在のユーザーのIDが存在するかで判定。
                             $isLiked = Auth::user()->likes->contains('item_id', $item->id); 
@@ -43,7 +43,7 @@
                             @csrf
                             
                             <button type="submit" class="like-button {{ $isLiked ? 'liked' : '' }}">
-                                {{-- 💡 いいね済みなら塗りつぶし (CSSで対応) --}}
+                                {{-- いいね済みなら塗りつぶし (CSSで対応) --}}
                                 <span class="heart-icon">♥</span>
                                 {{-- いいね数 --}}
                                 {{ $item->likes->count() }}
@@ -57,7 +57,7 @@
                         </span>
                     @endauth
 
-                    {{-- ★★★ コメント数とアイコン ★★★ --}}
+                    {{--  コメント数とアイコン  --}}
                     <span class="comments-count comment-stats">
                         <span class="comment-icon">💬</span>
                         <span class="comment-number">{{ $item->comments->count() }}</span>
@@ -65,12 +65,11 @@
                 </div>
 
 
-                {{-- ★★★ 購入ボタンの表示切り替えロジック (SOLD OUT) ★★★ --}}
-                {{-- 💡 Itemモデルに purchase() リレーションが定義されていることを前提とする --}}
+                {{--  購入ボタンの表示切り替えロジック (SOLD OUT) --}}
                 @if ($item->purchase)
                     <button class="buy-button sold-out-button" disabled> SOLD OUT (購入済み) </button>
                 @else
-                    {{-- ★★★ 修正: ルート名を 'item.purchase.create'、キーを 'id' に統一 ★★★ --}}
+                    {{--  ルート名を 'item.purchase.create'、キーを 'id' に統一 --}}
                     <a href="{{ route('item.purchase.create', ['id' => $item->id]) }}" class="buy-button active-button">
                         購入手続きへ
                     </a>
@@ -81,7 +80,7 @@
                 <h3>商品説明</h3>
                 <div class="description-body">
                     <p>{{ $item->description }}</p>
-                    <p>商品の状態は **{{ $item->condition }}** です。</p>
+                    <p class="item-condition">商品の状態は {{ $item->condition }} です。</p>
                 </div>
                 
                 <hr class="info-divider">

@@ -26,7 +26,6 @@ class ProfileController extends Controller
     public function update(ProfileRequest $request)
     {
         // 1. バリデーションの実行
-        // 💡 ここではリクエストファイル（ProfileRequest.php）の代わりに、シンプルな validate() を使用
         $request->validate([
             'name' => 'required|string|max:20', // ユーザー名 (設計書)
             'post_code' => ['required', 'regex:/^\d{3}-\d{4}$/'], // 郵便番号 (ハイフンあり8文字)

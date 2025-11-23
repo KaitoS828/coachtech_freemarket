@@ -21,7 +21,6 @@ Route::get('/login', [LoginController::class, 'create'])
 ->name('login'); //この処理はログインという名前で呼び出せる
 
 //ログイン処理
-// Fortifyが自動で用意するコントローラーを直接呼び出す
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
     ->middleware(['guest',]);//未ログインの人のみ
 
@@ -47,7 +46,6 @@ Route::middleware(['auth','verified'])->group(function () {
         Route::post('/sell', [ItemController::class, 'store'])->name('item.store');
 
         // 購入手続き画面へのルートを定義
-        // URI: /item/{item}/purchase/create
         Route::get('/item/{id}/purchase/create', [PurchaseController::class, 'create'])->name('item.purchase.create');
 
         // コメントはログインしたユーザーのみ投稿可能
@@ -56,12 +54,17 @@ Route::middleware(['auth','verified'])->group(function () {
         // いいねの追加・削除はログインしたユーザーのみ可能
         Route::post('/like/{itemId}/toggle', [LikeController::class, 'toggle'])->name('like.toggle');
         
-        // [決済実行ルート] - POST //purchase/{id} (後で実装)
-        Route::post('//purchase/{id}', [PurchaseController::class, 'store'])->name('purchase.store'); 
+        // [決済実行ルート] - POST //purchase/{id} 
+        Route::post('/purchase/{id}', [PurchaseController::class, 'store'])->name('purchase.store');
 
-        // [住所変更画面] - GET /purchase/address/{itemId}
-        Route::get('/purchase/address/{itemId}', [PurchaseController::class, 'editAddress'])->name('purchase.address.edit');
+        // 購入画面（GET）
+        Route::get('/purchase/{id}', [PurchaseController::class, 'create'])->name('purchase.create');
 
+        // [住所変更画面] - GET 
+        Route::get('/purchase/address/{id}', [PurchaseController::class, 'editAddress'])->name('purchase.address.edit');
+
+        //[住所更新処理] - PATCH /
+        Route::patch('/purchase/address/{id}', [PurchaseController::class, 'updateAddress'])->name('purchase.address.update');
 
         Route::patch('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
 

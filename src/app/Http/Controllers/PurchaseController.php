@@ -14,10 +14,6 @@ use App\Http\Requests\PurchaseRequest; // storeメソッドで使用
 
 class PurchaseController extends Controller
 {
-    /**
-     * 商品購入画面（支払い方法・配送先選択）を表示する。
-     * @param  int  $id
-     */
     public function create($id)
     {
         // 1. 購入する商品情報を取得
@@ -52,7 +48,7 @@ class PurchaseController extends Controller
 
     /**
      * 配送先住所を更新する (FN024-2)
-     * 💡 updateAddress ルートに対応
+     * updateAddress ルートに対応
      */
     public function updateAddress(Request $request, $id)
     {
@@ -67,14 +63,13 @@ class PurchaseController extends Controller
         $user = Auth::user();
         
         // 2. Profile情報を更新または新規作成
-        // 🚨 ここで Profile テーブルに住所情報を保存し、購入画面に反映させます。
-        $user->$profile()->updateOrCreate(
+        $user->profile()->updateOrCreate(
             ['user_id' => $user->id],
             $request->only(['post_code', 'address', 'building'])
         );
         
         // 3. 購入画面に戻る (FN024-2)
-        return redirect()->route('purchase.create', ['itemId' => $id])->with('success', '配送先住所を更新しました。');
+        return redirect()->route('purchase.create', ['id' => $id])->with('success', '配送先住所を更新しました。');
     }
 
     /**
@@ -87,12 +82,12 @@ class PurchaseController extends Controller
             'payment_method' => 'required', 
         ]);
         
-        // 2. ★★★ 住所情報取得と未設定チェック ★★★
+        // 2. 住所情報取得と未設定チェック 
         $profile = Auth::user()->profile; // ログインユーザーの最新のプロフィール情報を取得
 
         if (!$profile || !$profile->post_code || !$profile->address) {
             // 住所情報が未設定の場合は、エラーとして購入画面に戻す
-            return redirect()->route('purchase.create', ['itemId' => $id])->with('error', '配送先住所が未設定です。');
+            return redirect()->route('purchase.create', ['id' => $id])->with('error', '配送先住所が未設定です。');
         }
 
         // 3. トランザクション処理 (データの整合性を保証)
@@ -100,13 +95,13 @@ class PurchaseController extends Controller
             
             $item = Item::findOrFail($id);
 
-            // 🚨 既に売却済みでないかのチェック
+            // 既に売却済みでないかのチェック
             if ($item->is_sold) {
                 // 購入フローでは二重購入を防ぐため、エラーを投げる
                 throw new \Exception('この商品はすでに購入済みです。');
             }
 
-            // 4. Purchaseレコードの作成 (FN022-1, 3)
+            // 4. Purchaseレコードの作成 
             Purchase::create([
                 'user_id' => Auth::id(),
                 'item_id' => $id,
@@ -121,8 +116,6 @@ class PurchaseController extends Controller
             // 5. Itemの状態を「sold」にする（FN022-2: SOLD表示の基盤）
             $item->is_sold = true; 
             $item->save();
-            
-            // 💡 実際にはここで Stripe などの決済API コールが入ります
         });
 
         // 6. 商品一覧画面へ遷移（FN022-4）

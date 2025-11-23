@@ -9,25 +9,21 @@ use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Purchase;
-use App\Models\User; // use App\Models\User; に修正
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
+
 
 class ItemController extends Controller
 {
-    /**
-     * 商品一覧（トップページ）を表示するためのメソッド
-     * @param  \Illuminate\Http\Request  $request
-     */
         public function index(Request $request)
     {
         $categories = Category::all();
         $keyword = $request->input('keyword'); 
 
-        // 1. 基本クエリを作成 (N+1問題対策)
-        // 💡 $query にクエリビルダインスタンスを保持させる
+        // 1. 基本クエリを作成 
         $query = Item::with(['categories', 'likes', 'comments']);
 
-        // 2. ★★★ 検索/タブの条件分岐でクエリを絞り込む ★★★
+        // 2. 検索/タブの条件分岐でクエリを絞り込む
         if ($request->tab === 'mylist' && Auth::check()) {
             $likedItemIds = Auth::user()->likes()->pluck('item_id'); 
             
@@ -49,10 +45,10 @@ class ItemController extends Controller
     // ---商品出品機能---
     public function create()
     {
-        // 1. カテゴリ一覧を取得 (★これはOK)
+        // 1. カテゴリ一覧を取得 
         $categories = \App\Models\Category::all();
         
-        // 2. ★商品の状態（$conditions）を定義
+        // 2. 商品の状態を定義
         $conditions = [
             '良好' => '良好',
             '目立った傷や汚れなし' => '目立った傷や汚れなし',
@@ -60,7 +56,7 @@ class ItemController extends Controller
             '状態が悪い' => '状態が悪い',
         ];
 
-        // 3. ★compact() で $conditions をビューに渡す
+        // 3. compact() で $conditions をビューに渡す
         return view('item.create', compact('categories', 'conditions'));
     }
     
@@ -73,7 +69,7 @@ class ItemController extends Controller
             
             $itemData = $request->only(['name', 'description', 'brand_name', 'price', 'condition']);
             
-            // 1. 商品画像アップロード (FN029)
+            // 1. 商品画像アップロード 
             // Laravelのstorageディレクトリに保存し、パスを取得
             $path = $request->file('image')->store('public/items');
             
@@ -81,7 +77,7 @@ class ItemController extends Controller
             $itemData['image_path'] = str_replace('public/', '', $path); 
             $itemData['user_id'] = Auth::id(); // ログインユーザーを出品者として設定
             
-            // 2. itemsテーブルに商品を保存 (FN028)
+            // 2. itemsテーブルに商品を保存 
             $item = Item::create($itemData);
             
             // 3. カテゴリの紐づけ (多対多リレーション)
@@ -98,7 +94,7 @@ class ItemController extends Controller
      */
     public function show($id) 
     {
-        // ★購入記録（purchase）を with() で必ず取得する
+        // 購入記録（purchase）を with() で必ず取得する
         $item = Item::with(['categories', 'likes', 'comments.user', 'purchase'])->findOrFail($id); 
         
         return view('item.show', compact('item'));

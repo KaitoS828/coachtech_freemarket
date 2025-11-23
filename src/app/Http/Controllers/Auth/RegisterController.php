@@ -30,6 +30,6 @@ class RegisterController extends Controller
         auth()->login($user);
 
         // 修正箇所: リダイレクト先をプロフィール編集画面に変更 
-        return redirect()->route('mypage.profile.edit'); 
+        return redirect()->route('profile.edit'); 
     }
 }
