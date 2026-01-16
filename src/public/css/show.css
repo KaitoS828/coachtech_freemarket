@@ -1,0 +1,258 @@
+
+.mypage-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* ------------------- 1. プロフィールヘッダーエリア ------------------- */
+
+.profile-page .user-info {
+    display: flex;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+/* ★★★ プロフィール画像枠 (edit.blade.phpと共通) ★★★ */
+.profile-image-frame {
+    width: 150px; 
+    height: 150px;
+    
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin-right: 30px;
+    
+    /* placeholder スタイル */
+    background-color: #eee;
+    border: 1px solid #ccc;
+}
+
+.user-info h1 {
+    font-size: 24px;
+}
+
+.user-details {
+    margin-right: auto; /* プロフィール編集ボタンを右に寄せる */
+    display: flex;
+    flex-direction: column; /* 縦並び */
+    justify-content: center;
+}
+
+/* ------------------- 6. 評価表示 (FN005) ------------------- */
+.user-rating {
+    display: flex;
+    align-items: center;
+    gap: 2px; /* 星同士の間隔 */
+    margin-top: 5px;
+}
+
+.rating-star {
+    color: #D9D9D9;
+    font-size: 24px;
+}
+
+.rating-star.active {
+    color: #FFEB3B; /* アクティブ色 */
+}
+
+.button-edit {
+    padding: 10px 20px;
+    border: 1px solid #F84F59;
+    color: #F84F59;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* ------------------- 2. タブエリア ------------------- */
+
+.tabs {
+    display: flex;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #eee;
+}
+
+.tab-link {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #555;
+    font-weight: bold;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+    position: relative; /* バッジの位置調整用 */
+    display: flex;
+    align-items: center;
+    gap: 8px; /* テキストとバッジの間隔 */
+}
+
+.tab-link.active {
+    color: #F84F59; /* 赤色 */
+    border-bottom-color: #F84F59;
+}
+
+/* タブの横に表示される赤いバッジ */
+.tab-badge {
+    background-color: #F84F59;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* ------------------- 3. 商品一覧エリア ------------------- */
+
+.items-list {
+    display: grid;
+    /* 1行に4列の商品を均等に配置 */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px; 
+}
+
+.item-card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* 1. 画像の外枠（コンテナ）のスタイル */
+.item-image-wrapper {
+    width: 100%;
+    aspect-ratio: 1 / 1; /* 正方形を維持 */
+    background-color: #e0e0e0;
+    overflow: hidden; 
+    position: relative; /* SOLDバッジ用 */
+}
+
+/* 2. 商品画像（imgタグ）のスタイル */
+.item-image {
+    width: 100%; 
+    height: 100%;
+    object-fit: cover; 
+    display: block;
+}
+
+.item-name {
+    text-align: left;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+/* ------------------- 4. SOLD表示 (FN022) ------------------- */
+
+.sold-badge {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-20deg);
+    background-color: #F84F59;
+    color: white;
+    padding: 5px 15px;
+    font-size: 18px;
+    font-weight: bold;
+    border: 3px solid white;
+    z-index: 10;
+}
+
+/* ------------------- 5. メッセージ通知バッジ (取引中タブ) ------------------- */
+
+.message-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background-color: #F84F59;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 10;
+}
+
+.header-divider {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
+}
+
+.main-content-end {
+    clear: both;
+}
+
+.no-items-message {
+    grid-column: 1 / -1; /* グリッド全体に広げる */
+    text-align: center;
+    color: #888;
+    padding: 40px;
+}
+
+/* ==================== レスポンシブ対応 ==================== */
+
+/* タブレット対応 (768px - 1024px) */
+@media (max-width: 1024px) {
+    .items-list {
+        grid-template-columns: repeat(3, 1fr); /* 3列に変更 */
+        gap: 15px;
+    }
+
+    .mypage-container {
+        padding: 0 15px;
+    }
+}
+
+/* タブレット小 (768px - 850px) */
+@media (max-width: 850px) {
+    .items-list {
+        grid-template-columns: repeat(2, 1fr); /* 2列に変更 */
+        gap: 15px;
+    }
+
+    .profile-page .user-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .profile-image-frame {
+        margin-right: 0;
+        width: 120px;
+        height: 120px;
+    }
+
+    .button-edit {
+        align-self: flex-start;
+    }
+
+    .tabs {
+        flex-wrap: wrap;
+    }
+
+    .tab-link {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+}
+
+/* モバイル対応 (768px以下) */
+@media (max-width: 768px) {
+    .items-list {
+        grid-template-columns: repeat(2, 1fr); /* 2列維持 */
+        gap: 10px;
+    }
+
+    .user-info h1 {
+        font-size: 20px;
+    }
+
+    .rating-star {
+        font-size: 20px;
+    }
+}

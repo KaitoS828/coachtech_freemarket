@@ -1,0 +1,63 @@
+/* public/css/verification.css */
+
+/* メール認証誘導画面のスタイル */
+
+.verification-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    background-color: #fff;
+}
+
+.verification-box {
+    text-align: center;
+    background-color: #fff;
+    padding: 40px;
+}
+
+.verification-message {
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 40px;
+    color: #000;
+}
+
+/* 1. 認証はこちらから ボタン */
+.btn-verify-guide {
+    display: inline-block;
+    width: 220px;
+    padding: 15px 30px;
+    margin: 0 auto 25px;
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+    color: #000;
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.btn-verify-guide:hover {
+    background-color: #e8e8e8;
+}
+
+/* 2. 認証メールを再送する リンク */
+.btn-resend-mail {
+    background: none;
+    border: none;
+    color: #0066cc;
+    text-decoration: underline;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 10px 0;
+}
+
+.btn-resend-mail:hover {
+    color: #004499;
+}
+
+/* フォームのマージン調整 */
+.verification-box form {
+    margin-top: 20px;
+}

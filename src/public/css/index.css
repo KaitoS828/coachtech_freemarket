@@ -1,0 +1,150 @@
+/* --- 商品一覧ページのコンテナとカードのスタイル --- */
+
+.item-list-wrapper {
+    /* ページの上下の余白を制御する場合に使う */
+    padding-top: 20px;
+}
+
+.category-filter {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    background-color: white;
+    border-radius: 4px;
+}
+
+.category-tag {
+    display: inline-block;
+    background: #eee;
+    padding: 3px 8px;
+    margin-right: 5px;
+    border-radius: 4px;
+    font-size: 14px;
+    /* インラインスタイルをクラスに移動 */
+}
+
+/* 商品コンテナ */
+/* public/css/index.css に追記/修正 */
+
+.item-container {
+    /* Gridレイアウトを適用 */
+    display: grid;
+    /* 💡 ポイント: 1行に4列（または5列）を均等に配置 */
+    /* repeat(4, 1fr) で、4つの列を均等幅 (1fr) に設定 */
+    grid-template-columns: repeat(4, 1fr); 
+    /* 商品カード間の縦横の隙間を設定 */
+    gap: 20px; 
+    margin-top: 20px;
+}
+
+/* 商品カードのリンク（<a>タグ）のスタイル */
+.item-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block; /* グリッドアイテムとして振る舞う */
+    /* 商品カードの枠線や影が必要であればここで設定 */
+}
+
+/* 商品カード内の画像調整 */
+.item-card__image {
+    width: 100%;
+    /* 画像をコンテナのサイズに合わせるため、以下のプロパティを再確認 */
+    aspect-ratio: 1 / 1; /* 正方形に固定 */
+    object-fit: cover;
+}
+.item-card__content {
+    padding: 10px 0 0 0;
+}
+
+.item-card__title {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.item-card__price {
+    font-weight: bold;
+    margin: 5px 0 0 0;
+    color: #333;
+}
+
+.item-card-link {
+    text-decoration: none;
+    color: inherit; /* テキストの色を親要素から継承 */
+    display: block; /* カード全体がリンクになるようにブロック要素にする */
+}
+
+/* public/css/index.css に追記 */
+
+/* タブコンテナ */
+.item-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* タブリンクのスタイル */
+.tab-link {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #666;
+    font-weight: bold;
+    border-bottom: 3px solid transparent;
+    transition: border-color 0.2s;
+}
+
+/* アクティブなタブのスタイル */
+.tab-link.active {
+    color: #F84F59;
+    border-bottom-color: #F84F59;
+}
+
+/* 非アクティブなタブのスタイル */
+.tab-link.disabled {
+    color: #ccc;
+    cursor: default;
+}
+
+.tabs-divider {
+    border: none;
+    border-top: 1px solid #eee;
+    margin: 10px 0 30px;
+}
+
+/* ==================== レスポンシブ対応 ==================== */
+
+/* タブレット対応 (768px - 1024px) */
+@media (max-width: 1024px) {
+    .item-container {
+        grid-template-columns: repeat(3, 1fr); /* 3列に変更 */
+        gap: 15px;
+    }
+}
+
+/* タブレット小 (768px - 850px) */
+@media (max-width: 850px) {
+    .item-container {
+        grid-template-columns: repeat(2, 1fr); /* 2列に変更 */
+        gap: 15px;
+    }
+
+    .header__search-form {
+        max-width: 400px;
+    }
+}
+
+/* モバイル対応 (768px以下) */
+@media (max-width: 768px) {
+    .item-container {
+        grid-template-columns: repeat(2, 1fr); /* 2列維持 */
+        gap: 10px;
+    }
+
+    .item-tabs {
+        margin-bottom: 15px;
+    }
+
+    .tab-link {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
+}
