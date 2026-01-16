@@ -51,25 +51,32 @@ Coachtechフリマアプリのドキュメントです。
 
 ## 環境構築
 
-Makefileを使用してコマンドを簡略化しています。
-
 ### 1. 初回セットアップ
 
 リポジトリをクローンした後、以下のコマンドを順に実行してください。
 
 ```bash
-# ビルド、コンテナ起動、パッケージインストール、キー生成を一括実行
-make setup
+# Dockerコンテナのビルドと起動
+docker-compose up -d --build
+
+# 環境設定ファイルの作成
+cp src/.env.example src/.env
+
+# PHPパッケージのインストール
+docker-compose exec php composer install
+
+# アプリケーションキーの生成
+docker-compose exec php php artisan key:generate
 
 # データベースの初期化（マイグレーション & シーディング）
-make init
+docker-compose exec php php artisan migrate:fresh --seed
 ```
 
 ### 2. コンテナ操作
 
 ```bash
-make up    # コンテナ起動
-make down  # コンテナ停止
+docker-compose up -d    # コンテナ起動
+docker-compose down     # コンテナ停止
 ```
 
 ### 3. URL
