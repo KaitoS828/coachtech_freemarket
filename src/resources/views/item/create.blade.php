@@ -12,7 +12,7 @@
     
     <h2>商品の出品</h2>
     
-    {{-- 💡 画像ファイルを含むため、enctype="multipart/form-data" を設定 --}}
+    {{-- 画像ファイルを含むため、enctype="multipart/form-data" を設定 --}}
     <form action="{{ route('item.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
@@ -31,7 +31,7 @@
                 <input type="file" id="image_upload" name="image" style="display: none;" accept="image/*">
             </div>
             
-            {{-- ★バリデーションエラーメッセージの表示 --}}
+            {{-- バリデーションエラーメッセージの表示 --}}
             @error('image')
                 <div class="form__error" style="color: red; margin-top: 5px;">{{ $message }}</div>
             @enderror
@@ -55,7 +55,7 @@
                         </label>
                     @endforeach
                 </div>
-                {{-- ★カテゴリのエラーメッセージの表示 --}}
+                {{-- カテゴリのエラーメッセージの表示 --}}
                 @error('categories')
                     <div class="form__error" style="color: red; margin-top: 5px;">{{ $message }}</div>
                 @enderror
@@ -69,13 +69,13 @@
                     {{-- ItemControllerのcreate()から渡された $conditions をループで表示 --}}
                     @foreach ($conditions as $id => $name)
                         <option value="{{ $id }}"
-                            {{-- 💡 バリデーションエラーで戻ったときに選択状態を保持 --}}
+                            {{-- バリデーションエラーで戻ったときに選択状態を保持 --}}
                             {{ old('condition_id') == $id ? 'selected' : '' }}>
                             {{ $name }}
                         </option>
                     @endforeach
                 </select>
-                {{-- ★状態のエラーメッセージの表示 --}}
+                {{-- 状態のエラーメッセージの表示 --}}
                 @error('condition_id')
                     <div class="form__error" style="color: red; margin-top: 5px;">{{ $message }}</div>
                 @enderror

@@ -37,7 +37,7 @@ class ProfileController extends Controller
         ]);
         
         $user = Auth::user();
-        $profileData = $request->validated(); // ★ validated() を使って安全なデータのみを取得
+        $profileData = $request->validated(); // validated() を使って安全なデータのみを取得
 
         // 2. トランザクション処理 (usersとprofilesの同時更新)
         DB::transaction(function () use ($request, $user, $profileData) {

@@ -13,8 +13,8 @@ class Purchase extends Model
         'user_id',
         'item_id',
         'payment_method',
-        'shipping_post_code', // ★必須
-        'shipping_address',   // ★必須
+        'shipping_post_code', // 必須
+        'shipping_address',   // 必須
         'shipping_building',
     ];
 

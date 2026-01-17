@@ -59,7 +59,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Profile::class);
     }
 
-    // 💡その他、likesやcommentsなど、ER図に登場するリレーションも必要に応じて追加します。
+    // その他、likesやcommentsなど、ER図に登場するリレーションも必要に応じて追加します。
     public function likes()
     {
         return $this->hasMany(Like::class);

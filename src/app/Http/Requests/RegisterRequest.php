@@ -19,7 +19,7 @@ class RegisterRequest extends FormRequest
     }
 
     /**
-     * アプリケーションに適用されるバリデーションルールを取得します。
+     * アプリケーションに適用されるバリデーションルールを取得。
      *
      * @return array<string, mixed>
      */
@@ -39,7 +39,7 @@ class RegisterRequest extends FormRequest
     }
 
     /**
-     * カスタムバリデーションメッセージを取得します。
+     * カスタムバリデーションメッセージを取得します
      * FN004: 決められた文言を必ず守る
      *
      * @return array

@@ -15,13 +15,13 @@
         </p>
         
         {{-- 1. 認証リンクへ遷移するボタン (メールを確認させる動線) --}}
-        {{-- 💡 開発環境ではMailHog UIへ誘導 --}}
+        {{-- 開発環境ではMailHog UIへ誘導 --}}
         <a href="http://localhost:8025" class="btn-verify-guide" target="_blank">
             認証はこちらから
         </a>
         
         {{-- 2. 認証メール再送ボタン (FN013) --}}
-        {{-- 💡 Fortifyの 'verification.send' ルートにPOSTリクエストを送る --}}
+        {{-- Fortifyの 'verification.send' ルートにPOSTリクエストを送る --}}
         <form method="POST" action="{{ route('verification.send') }}">
             @csrf
             <button type="submit" class="btn-resend-mail">

@@ -25,7 +25,7 @@ class MailVerifiedMiddleware
         // セッションから未認証ユーザー情報を取得
         $sessionData = session()->get('unauthenticated_user') ?? null;
 
-        // 💡 未認証ユーザー情報がセッションに存在する場合、
+        // 未認証ユーザー情報がセッションに存在する場合、
         // メール認証画面にリダイレクト
         if ($sessionData) {
             return redirect()->route('verification.notice');

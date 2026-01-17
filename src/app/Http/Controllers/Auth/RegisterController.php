@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\RegisterRequest; // ★作成したカスタムリクエストを use
+use App\Http\Requests\RegisterRequest; // 作成したカスタムリクエストを use
 
 class RegisterController extends Controller
 {

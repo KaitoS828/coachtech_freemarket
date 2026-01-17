@@ -35,7 +35,7 @@ class PurchaseMiddleware
             abort(404, '商品が見つかりません');
         }
         
-        // 💡 自分の出品商品の場合はリダイレクトでガード
+        // 自分の出品商品の場合はリダイレクトでガード
         // Itemモデルのmine()メソッドを使用
         if ($item->mine()) {
             return redirect()

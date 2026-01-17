@@ -14,7 +14,7 @@ class AddIsSoldToItemsTable extends Migration
     public function up()
     {
         Schema::table('items', function (Blueprint $table) {
-            // ★is_sold カラムを追加し、デフォルトで false (未販売) に設定
+            // is_sold カラムを追加し、デフォルトで false (未販売) に設定
             $table->boolean('is_sold')->default(false)->after('condition');
         });
     }

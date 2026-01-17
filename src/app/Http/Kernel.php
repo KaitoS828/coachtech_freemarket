@@ -63,9 +63,9 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        // 💡 カスタムミドルウェア: 出品者が自分の商品を購入できないようガード
+        // カスタムミドルウェア: 出品者が自分の商品を購入できないようガード
         'purchase' => \App\Http\Middleware\PurchaseMiddleware::class,
-        // 💡 カスタムミドルウェア: セッションに未認証ユーザー情報がある場合リダイレクト
+        // カスタムミドルウェア: セッションに未認証ユーザー情報がある場合リダイレクト
         'email' => \App\Http\Middleware\MailVerifiedMiddleware::class,
     ];
 }

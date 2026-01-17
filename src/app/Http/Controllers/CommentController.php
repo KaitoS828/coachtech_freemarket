@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers; // ★namespaceが正しいか確認
+namespace App\Http\Controllers; // namespaceが正しいか確認
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

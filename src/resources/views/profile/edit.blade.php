@@ -12,7 +12,7 @@
         
         <h2>プロフィール設定</h2>
         
-        {{-- 💡 アクションは ProfileController@update、PATCHメソッド、画像アップロード設定済み --}}
+        {{-- アクションは ProfileController@update、PATCHメソッド、画像アップロード設定済み --}}
         <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PATCH')
@@ -25,7 +25,7 @@
                     $placeholderClass = $imagePath ? '' : 'profile-placeholder';
                 @endphp
                 
-                {{-- ★★★ 画像のプレビューは行わず、既存の画像またはプレースホルダーを表示 ★★★ --}}
+                {{-- 画像のプレビューは行わず、既存の画像またはプレースホルダーを表示 --}}
                 <img 
                     id="profile-preview" 
                     src="{{ $imagePath ? asset('storage/' . $imagePath) : '' }}" 

@@ -10,8 +10,8 @@
 @section('content')
     <div class="item-detail-container">
 
-        <div class="item-main-area">@sectio
-            {{-- 左側: 商品画像 (見本通りの大きな枠) --}}
+        <div class="item-main-area">
+            {{-- 左側: 商品画像--}}
                 <div class="item-image-wrapper">
                     <img src="
                     {{--  画像パスの安全な処理 (S3/ローカル混在対応)  --}}
@@ -32,11 +32,10 @@
                 <div class="interaction-stats">
                     
                     @auth
-                        {{-- 💡 リファクタリング: Itemモデルのliked()メソッドでいいね済みか判定 --}}
                         {{-- Before: @php $isLiked = Auth::user()->likes->contains('item_id', $item->id); @endphp --}}
                         {{-- After: $item->liked() を直接使用 --}}
                         
-                        {{-- ★いいねボタンのフォーム (POSTでLikeController@toggleへ) ★ --}}
+                        {{-- いいねボタンのフォーム (POSTでLikeController@toggleへ) --}}
                         <form action="{{ route('like.toggle', ['itemId' => $item->id]) }}" method="POST" class="like-form">
                             @csrf
                             
@@ -128,15 +127,15 @@
         @auth
             <div class="comment-form-area">
                 <h4>商品へのコメント</h4>
-                {{-- 💡 コメント保存ルートと隠しフィールドを正しく設定 --}}
+                {{--コメント保存ルートと隠しフィールドを正しく設定 --}}
                 <form action="{{ route('comment.store') }}" method="POST">
                     @csrf
-                    {{-- ★商品IDを隠しフィールドで送る --}}
+                    {{-- 商品IDを隠しフィールドで送る --}}
                     <input type="hidden" name="item_id" value="{{ $item->id }}">
                     
                     <textarea name="comment" rows="5" placeholder="こちらにコメントを入力します">{{ old('comment') }}</textarea>
                     
-                    {{-- ★ バリデーションエラー表示 --}}
+                    {{-- バリデーションエラー表示 --}}
                     @error('comment')
                         <p class="error-message">{{ $message }}</p>
                     @enderror

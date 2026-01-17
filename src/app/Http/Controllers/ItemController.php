@@ -28,11 +28,10 @@ class ItemController extends Controller
         if ($request->tab === 'mylist' && Auth::check()) {
             $likedItemIds = Auth::user()->likes()->pluck('item_id'); 
             
-            // 💡 $query に whereIn を適用 (get() はまだ実行しない)
+            // $query に whereIn を適用 (get() はまだ実行しない)
             $query->whereIn('id', $likedItemIds); 
         } 
         
-        // 💡 リファクタリング: 検索キーワードの適用にItemモデルのscopeItem()を使用 (Fn016)
         // Before: $query->where('name', 'LIKE', '%' . $keyword . '%');
         // After: $query->item($keyword); ← スコープメソッドでシンプルに
         if ($keyword) {
