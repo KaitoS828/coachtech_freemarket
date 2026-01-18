@@ -72,14 +72,50 @@ docker-compose exec php php artisan key:generate
 docker-compose exec php php artisan migrate:fresh --seed
 ```
 
-### 2. コンテナ操作
+### 2. Stripe APIキーの設定（必須）
+
+クレジットカード決済機能を利用するには、Stripe APIキーの設定が必要です。
+
+#### 手順
+
+1. [Stripe](https://stripe.com/jp) にアクセスし、アカウントを作成（既にある場合はログイン）
+2. [Stripe Dashboard](https://dashboard.stripe.com/) の「開発者」→「APIキー」に移動
+3. テスト用のキーをコピーし、`src/.env` に以下を追加：
+
+```env
+STRIPE_PUBLIC_KEY=<あなたの公開キー>
+STRIPE_SECRET_KEY=<あなたのシークレットキー>
+```
+
+4. 設定を反映させるため、キャッシュをクリア：
+
+```bash
+docker-compose exec php php artisan config:clear
+```
+
+> **注意**: 本番環境では `pk_live_` / `sk_live_` で始まる本番キーを使用してください。  
+> テストキーでは実際の決済は行われません。
+
+#### テスト用カード番号
+
+決済テスト時は以下のカード番号を使用してください。
+
+| シナリオ | カード番号 | 有効期限 | CVC |
+|:---|:---|:---|:---|
+| **成功** | `4242 4242 4242 4242` | 任意の将来日付 | 任意の3桁 |
+| **認証が必要 (3Dセキュア)** | `4000 0025 0000 3155` | 任意の将来日付 | 任意の3桁 |
+| **カード拒否** | `4000 0000 0000 9995` | 任意の将来日付 | 任意の3桁 |
+
+> 📝 その他のテストカードは [Stripe公式ドキュメント](https://stripe.com/docs/testing#cards) を参照してください。
+
+### 3. コンテナ操作
 
 ```bash
 docker-compose up -d    # コンテナ起動
 docker-compose down     # コンテナ停止
 ```
 
-### 3. URL
+### 4. URL
 - **アプリケーション**: http://localhost
 - **MailHog (メール確認)**: http://localhost:8025/
 - **phpMyAdmin (DB確認)**: http://localhost:8080/
