@@ -30,10 +30,7 @@ class SendTransactionCompletedEmail
     {
         $purchase = $event->purchase;
 
-        // 購入者に送信
-        Mail::to($purchase->user->email)->send(new CompletedEmail($purchase) );
-
-        // 出品者に送信
-        Mail::to($purchase->item->user->email)  ->send(new CompletedEmail($purchase));
+        // 出品者のみに送信（評価シート要件：「商品出品者宛に」通知メールを送信）
+        Mail::to($purchase->item->user->email)->send(new CompletedEmail($purchase));
     }
 }

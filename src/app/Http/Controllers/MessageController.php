@@ -44,14 +44,14 @@ class MessageController extends Controller
         }
 
 
-        // 他の取引中の商品を追加
+        // 他の取引中の商品を追加（進行中 + 購入者評価済み）
         $ongoingpurchase = Purchase::where(function($query) use ($user) {
             $query->where('user_id', $user->id)
             ->orWhereHas('item', function($q) use ($user) {
                 $q->where('user_id', $user->id);
             });
         })
-        ->where('status', 0)
+        ->whereIn('status', [0, 1])
         ->where('id', '!=', $purchaseId)
         ->get();
 

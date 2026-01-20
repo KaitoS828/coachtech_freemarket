@@ -83,7 +83,7 @@ class ProfileController extends Controller
             // 購入した商品一覧を取得 
             $purchasedItems = $user->purchasedItems()->get(); 
             
-            //条件付き検索
+            //条件付き検索（進行中 + 購入者評価済み）
             //Purchaseテーブルから検索、where...で条件を指定
             //function($query)use($user)で箱を作成
             $ongoingpurchase = Purchase::where(function($query) use ($user) {
@@ -94,7 +94,7 @@ class ProfileController extends Controller
                     $q->where('user_id', $user->id);   //または、自分が出品した商品
                 });
             })
-            ->where('status',0) //かつ進行中
+            ->whereIn('status', [0, 1]) //進行中(0)または購入者評価済み(1)
             ->with(['item','messages' => function($query) {
                 // メッセージを新しい順に取得
                 $query->orderBy('created_at', 'desc');

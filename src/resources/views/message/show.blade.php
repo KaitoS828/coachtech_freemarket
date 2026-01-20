@@ -62,8 +62,18 @@
                     @if ($message->user_id === $user->id)
                         {{-- 自分のメッセージ項目 --}}
                         <div class="message-item me">
-                            <div class="message-content">
+                            {{-- ユーザー名とアイコンの行 --}}
+                            <div class="message-header-row">
                                 <div class="message-user-name">{{ $message->user->name }}</div>
+                                @if ($message->user->profile && $message->user->profile->image_path)
+                                    <img src="{{ asset('storage/' . $message->user->profile->image_path) }}"
+                                        alt="{{ $message->user->name }}" class="message-avatar">
+                                @else
+                                    <div class="message-avatar"></div>
+                                @endif
+                            </div>
+                            {{-- メッセージコンテンツ --}}
+                            <div class="message-content">
                                 <div class="message-bubble">{{ $message->content }}</div>
 
                                 {{-- 画像アップロード機能 --}}
@@ -87,24 +97,22 @@
                                     </div>
                                 </div>
                             </div>
-                            @if ($message->user->profile && $message->user->profile->image_path)
-                                <img src="{{ asset('storage/' . $message->user->profile->image_path) }}"
-                                    alt="{{ $message->user->name }}" class="message-avatar">
-                            @else
-                                <div class="message-avatar"></div>
-                            @endif
                         </div>
                     @else
                         {{-- 相手のメッセージ項目 --}}
                         <div class="message-item other">
-                            @if ($message->user->profile && $message->user->profile->image_path)
-                                <img src="{{ asset('storage/' . $message->user->profile->image_path) }}"
-                                    alt="{{ $message->user->name }}" class="message-avatar">
-                            @else
-                                <div class="message-avatar"></div>
-                            @endif
-                            <div class="message-content">
+                            {{-- ユーザー名とアイコンの行 --}}
+                            <div class="message-header-row">
+                                @if ($message->user->profile && $message->user->profile->image_path)
+                                    <img src="{{ asset('storage/' . $message->user->profile->image_path) }}"
+                                        alt="{{ $message->user->name }}" class="message-avatar">
+                                @else
+                                    <div class="message-avatar"></div>
+                                @endif
                                 <div class="message-user-name">{{ $message->user->name }}</div>
+                            </div>
+                            {{-- メッセージコンテンツ --}}
+                            <div class="message-content">
                                 <div class="message-bubble">{{ $message->content }}</div>
 
                                 {{-- 画像アップロード機能 --}}
@@ -122,12 +130,20 @@
 
             {{-- メッセージ送信フォーム --}}
             <div class="message-form">
-                <form action="{{ route('message.store', ['purchaseId' => $purchase->id]) }}" method="POST"
-                    enctype="multipart/form-data">
+                {{-- バリデーションエラー表示（フォームの外側） --}}
+                @if ($errors->any())
+                    <div class="validation-errors" style="margin-bottom: 10px;">
+                        @foreach ($errors->all() as $error)
+                            <p style="color: #FF5555; font-size: 14px; margin: 5px 0;">{{ $error }}</p>
+                        @endforeach
+                    </div>
+                @endif
 
+                <form action="{{ route('message.store', ['purchaseId' => $purchase->id]) }}" method="POST"
+                    enctype="multipart/form-data" novalidate>
                     @csrf
                     {{-- FN009: 入力情報保持機能 --}}
-                    <textarea name="content" placeholder="取引メッセージを記入してください" required>{{ old('content') }}</textarea>
+                    <textarea id="message-content" name="content" placeholder="取引メッセージを記入してください">{{ old('content') }}</textarea>
                     <label for="image-upload" class="image-upload-button">画像を追加</label>
                     <input type="file" id="image-upload" name="image" accept="image/*" style="display: none;">
                     <button type="submit" class="send-button"></button>
@@ -152,13 +168,13 @@
                     <input type="radio" id="star4" name="rate" value="4" /><label for="star4">★</label>
                     <input type="radio" id="star3" name="rate" value="3" /><label for="star3">★</label>
                     <input type="radio" id="star2" name="rate" value="2" /><label for="star2">★</label>
-                    <input type="radio" id="star1" name="rate" value="1" /><label for="star1">★</label>
+                    <input type="radio" id="star1" name="rate" value="1" /><label
+                        for="star1">★</label>
                 </div>
 
 
 
                 <div class="modal-actions">
-                    <button type="button" class="btn-secondary" onclick="closeModal()">キャンセル</button>
                     <button type="submit" class="btn-primary">送信する</button>
                 </div>
             </form>
@@ -187,5 +203,29 @@
                 openModal();
             };
         @endif
+
+        // FN009: 入力情報保持機能（localStorage使用）
+        document.addEventListener('DOMContentLoaded', function() {
+            const purchaseId = '{{ $purchase->id }}';
+            const storageKey = `message_draft_${purchaseId}`;
+            const textarea = document.getElementById('message-content');
+            const form = document.querySelector('.message-form form');
+
+            // ページ読み込み時に復元（old()の値がない場合のみ）
+            const savedContent = localStorage.getItem(storageKey);
+            if (savedContent && !textarea.value.trim()) {
+                textarea.value = savedContent;
+            }
+
+            // 入力中に保存
+            textarea.addEventListener('input', function() {
+                localStorage.setItem(storageKey, this.value);
+            });
+
+            // フォーム送信時にクリア
+            form.addEventListener('submit', function() {
+                localStorage.removeItem(storageKey);
+            });
+        });
     </script>
 @endsection

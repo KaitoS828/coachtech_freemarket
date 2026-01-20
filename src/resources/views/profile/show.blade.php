@@ -63,8 +63,11 @@
             <a href="{{ route('mypage.show', ['tab' => 'ongoing']) }}"
                 class="tab-link {{ $tab === 'ongoing' ? 'active' : '' }}">
                 取引中の商品
-                @if ($ongoingpurchase->count() > 0)
-                    <span class="tab-badge">{{ $ongoingpurchase->count() }}</span>
+                @php
+                    $totalUnreadCount = $ongoingpurchase->sum('unread_count');
+                @endphp
+                @if ($totalUnreadCount > 0)
+                    <span class="tab-badge">{{ $totalUnreadCount }}</span>
                 @endif
             </a>
         </div>
