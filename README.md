@@ -70,6 +70,9 @@ docker-compose exec php php artisan key:generate
 
 # データベースの初期化（マイグレーション & シーディング）
 docker-compose exec php php artisan migrate:fresh --seed
+
+# シンボリックリンクの作成（画像表示に必須）
+docker-compose exec php php artisan storage:link
 ```
 
 ### 2. Stripe APIキーの設定（必須）
